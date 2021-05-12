@@ -24,7 +24,6 @@ YTDToolio pack very_cool_car -d very_cool_car_small
 
 ## Building
 
-Requires dotnet cli and some kind of C++ compiler.
-Generating project files with [premake 5](https://premake.github.io/) should be just work:tm:. If not you can build `FuckDX` manually with your C++ compiler of choice and the rest with `dotnet publish -c Release`, just make sure `FuckDX.dll` is accessible to the `dotnet publish` output.
+Use the `build_*` script appropiate for your system.
 
 If you use this for your FiveM server and get infinite donations it'd be nice if you [shared some of it](https://www.patreon.com/kngrektor)

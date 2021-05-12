@@ -1,11 +1,14 @@
 // https://github.com/richgel999/bc7enc/blob/master/rgbcx.h
 #define RGBCX_IMPLEMENTATION 1
+// apparently rgbcx needs this
+#include <cstring>
+#include <cmath>
 #include "rgbcx.h"
 
 #if defined _WIN32 || defined __CYGWIN__
-	#define FUCKDX_API __declspec(dllexport) extern "C"
+	#define FUCKDX_API extern "C" __declspec(dllexport)
 #else
-    #define FUCKDX_API __attribute__ ((visibility ("default"))) extern "C"
+	#define FUCKDX_API extern "C" __attribute__((visibility("default")))
 #endif
 
 using Pixel = uint8_t[4];
@@ -30,6 +33,7 @@ int block_packed_size(D3DFMT fmt) {
 	case ATI1: return 8;
 	case ATI2: return 16;
 	case BC7:  return 16;
+	default:   return -1;
 	}
 }
 
