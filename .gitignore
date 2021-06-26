@@ -1,5 +1,7 @@
-Debug
-build
-bin
-obj
-.vs
+.vs/
+**/bin/
+**/obj/
+*.suo
+
+Debug/*
+Release/*

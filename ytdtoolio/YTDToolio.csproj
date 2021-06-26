@@ -6,11 +6,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="DirectXTex">
+      <HintPath>..\vendor\gta-toolkit\bin\DirectXTex.dll</HintPath>
+    </Reference>
     <Reference Include="RageLib">
-      <HintPath>..\gta-toolkit\bin\RageLib.dll</HintPath>
+      <HintPath>..\vendor\gta-toolkit\bin\RageLib.dll</HintPath>
     </Reference>
     <Reference Include="RageLib.GTA5">
-      <HintPath>..\gta-toolkit\bin\RageLib.GTA5.dll</HintPath>
+      <HintPath>..\vendor\gta-toolkit\bin\RageLib.GTA5.dll</HintPath>
     </Reference>
   </ItemGroup>
 

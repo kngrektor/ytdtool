@@ -11,7 +11,7 @@ if exist "%programfiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" (
 
 call "%INSTALLPATH%\Common7\Tools\VsDevCmd.bat"
 
-mkdir "bin"
+if not exist "bin" mkdir "bin"
 
 :: Build FuckDX
 cd "fuckdx\"
