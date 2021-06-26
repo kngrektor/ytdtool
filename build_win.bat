@@ -6,23 +6,26 @@ cd /D "%~dp0"
 set INSTALLPATH=
 
 if exist "%programfiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" (
-  for /F "tokens=* USEBACKQ" %%F in (`"%programfiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -version 16.0 -property installationPath`) do set INSTALLPATH=%%F
+	for /F "tokens=* USEBACKQ" %%F in (`"%programfiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -version 16.0 -property installationPath`) do set INSTALLPATH=%%F
 )
 
 call "%INSTALLPATH%\Common7\Tools\VsDevCmd.bat"
 
+mkdir "bin"
+
 :: Build FuckDX
 cd "fuckdx\"
-	premake5 vs2015
+	premake5 vs2019
 
 	cd "build\"
-		msbuild FuckDX.sln /m /nologo /v:m /p:Configuration=Release
+		msbuild FuckDX.sln -m -nologo -v:m -p:Configuration=Release
 
-		cp "bin\Release\FuckDX.dll" "..\..\bin\"
+		copy /y "bin\Release\FuckDX.dll" "..\..\bin\"
 	cd ..
-	rm -r "build\"
+
+	rd /s /q "build\"
 cd ..
 
 :: Build YTDToolio
 dotnet publish -c Release -r win-x64 --self-contained true
-cp "ytdtoolio\bin\Release\net5.0\win-x64\publish/YTDToolio" "bin\"
+copy /y "ytdtoolio\bin\Release\net5.0\win-x64\publish\YTDToolio.exe" "bin\"

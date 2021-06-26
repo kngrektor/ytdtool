@@ -7,11 +7,10 @@ using System.Text.Json;
 
 using SixLabors.ImageSharp;
 using RageLib.ResourceWrappers;
-using SixLabors.ImageSharp.Processing;
 
 using RageLib.Resources.Common;
 using RageLib.Resources.GTA5.PC.Textures;
-using RageLib.ResourceWrappers.GTA5.PC.Textures;
+using RageLib.GTA5.ResourceWrappers.PC.Textures;
 
 namespace ytdtoolio {
 	class Meta {
@@ -20,6 +19,7 @@ namespace ytdtoolio {
 
 		public void Save(string path) =>
 			File.WriteAllText(path, JsonSerializer.Serialize(this));
+
 		public static Meta Load(string path) =>
 			JsonSerializer.Deserialize<Meta>(File.ReadAllText(path))
 				?? throw new Exception("Parsing meta JSON returned null. :(");
@@ -33,7 +33,6 @@ namespace ytdtoolio {
 		public int MipMapLevels { get => meta.MipMapLevels; }
 		public int Width { get => image.Width; }
 		public int Height { get => image.Height; }
-
 
 		private PngTexture(Image image) {
 			this.image = image;

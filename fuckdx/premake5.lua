@@ -8,6 +8,7 @@ workspace "FuckDX"
 		language "C++"
 		cppdialect "C++17"
 		files { "**.h", "**.cpp" }
+		architecture 'x64'
 
 		filter { "configurations:Debug" }
 			defines { "DEBUG" }
