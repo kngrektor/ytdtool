@@ -32,6 +32,6 @@ cd "vendor/gta-toolkit"
 	if not exist "bin" mkdir "bin"
 
 	dotnet publish RageLib.GTA5/RageLib.GTA5.csproj -c Release -r win-x64 --self-contained true --nologo
-	copy /y "RageLib.GTA5\bin\Release\net5.0\RageLib.dll" "bin\"
-	copy /y "RageLib.GTA5\bin\Release\net5.0\RageLib.GTA5.dll" "bin\"
+	copy /y "RageLib.GTA5\bin\Release\net5.0\win-x64\RageLib.dll" "bin\"
+	copy /y "RageLib.GTA5\bin\Release\net5.0\win-x64\RageLib.GTA5.dll" "bin\"
 cd ../..
