@@ -17,6 +17,7 @@ namespace ytdtoolio {
 		private PngTextureDictionary(Dictionary<string, PngTexture> pngs) {
 			this.pngs = pngs;
 		}
+
 		public PngTextureDictionary(ITextureDictionary dict) {
 			pngs = dict.Textures
 				.ToDictionary(
@@ -50,6 +51,10 @@ namespace ytdtoolio {
 		public PgDictionary64<TextureDX11> ToTextureDictionary() {
 			// This too is a mess
 			var dict = new PgDictionary64<TextureDX11>();
+
+			dict.Hashes = new SimpleList64<uint>();
+			dict.Values = new ResourcePointerList64<TextureDX11>();
+
 			dict.Values.Entries = new ResourcePointerArray64<TextureDX11>();
 			var w = new TextureDictionaryWrapper_GTA5_pc(dict);
 

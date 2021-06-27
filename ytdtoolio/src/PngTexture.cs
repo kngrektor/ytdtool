@@ -15,6 +15,7 @@ using RageLib.GTA5.ResourceWrappers.PC.Textures;
 namespace ytdtoolio {
 	class Meta {
 		public TextureFormat Format { get; set; } = TextureFormat.D3DFMT_DXT5;
+
 		public int MipMapLevels { get; set; } = 1;
 
 		public void Save(string path) =>
@@ -51,6 +52,7 @@ namespace ytdtoolio {
 			image.SaveAsPng(path);
 			meta.Save($"{path}.json");
 		}
+
 		static public PngTexture Load(string path) {
 			Console.WriteLine($"  Loading {path}:");
 			var img = new PngTexture(Image.Load(path));

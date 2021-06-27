@@ -77,6 +77,7 @@ namespace ytdtoolio {
 			
 			var dir = destination?.FullName ??
 				Path.Join(file.DirectoryName, Path.GetFileNameWithoutExtension(file.Name));
+
 			new PngTextureDictionary(ytd.TextureDictionary)
 				.Save(dir);
 		}
@@ -87,6 +88,7 @@ namespace ytdtoolio {
 
 			var file = destination?.FullName ??
 				Path.Join(directory?.Parent?.FullName, $"{directory?.Name}.ytd");
+
 			new ResourceFile_GTA5_pc<PgDictionary64<TextureDX11>>() {
 				ResourceData = dict,
 				Version = 13
