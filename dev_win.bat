@@ -18,10 +18,20 @@ cd "vendor/gta-toolkit"
 	dotnet sln remove ..\Toolkit.Testing\Testing.RDR2\Testing.RDR2.csproj
 	dotnet sln remove ..\Toolkit.Testing\Testing.GTA5\Testing.GTA5.csproj
 	dotnet sln remove _TestTools.GTA5\ExtractKeysFromDump\ExtractKeysFromDump.csproj
+	dotnet sln remove _TestTools.GTA5\ExtractKeysFromDump\ExtractKeysFromDump.csproj
+	dotnet sln remove RageLib.GTA5.UnitTests\RageLib.GTA5.UnitTests.csproj
 
+	dotnet sln remove Libraries\DirectXTex\DirectXTex.vcxproj
+	dotnet remove RageLib/RageLib.csproj reference ..\Libraries\DirectXTex\DirectXTex.vcxproj
+
+	if exist RageLib\Helpers\DDSIO.cs del RageLib\Helpers\DDSIO.cs
+	if exist RageLib\Helpers\TextureCompression.cs del RageLib\Helpers\TextureCompression.cs
+	if exist RageLib\Helpers\TextureConvert.cs del RageLib\Helpers\TextureConvert.cs
+
+	if exist "bin" rd /s /q "bin\"
 	if not exist "bin" mkdir "bin"
-	msbuild Toolkit.sln -m -nologo -v:m -t:RageLib_GTA5 -p:Configuration=Release -p:Platform=x64 -r
-	copy /y "RageLib.GTA5\bin\Release\net5.0\DirectXTex.dll" "bin\"
+
+	dotnet publish RageLib.GTA5/RageLib.GTA5.csproj -c Release -r win-x64 --self-contained --nologo
 	copy /y "RageLib.GTA5\bin\Release\net5.0\RageLib.dll" "bin\"
 	copy /y "RageLib.GTA5\bin\Release\net5.0\RageLib.GTA5.dll" "bin\"
 cd ../..

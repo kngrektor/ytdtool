@@ -6,9 +6,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="DirectXTex">
-      <HintPath>..\vendor\gta-toolkit\bin\DirectXTex.dll</HintPath>
-    </Reference>
     <Reference Include="RageLib">
       <HintPath>..\vendor\gta-toolkit\bin\RageLib.dll</HintPath>
     </Reference>
