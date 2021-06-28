@@ -1,6 +1,7 @@
+#!/bin/bash
 cd "$(dirname $0)"
 
-mkdir -p "bin"
+mkdir "bin"
 
 # Build FuckDX
 cd "fuckdx/"
@@ -11,7 +12,8 @@ cd "fuckdx/"
 
 		cp "bin/Release/libFuckDX.dylib" "../../bin/"
 	cd ..
-	rm -r "build/"
+
+	rm -rf "build/"
 cd ..
 
 # Build YTDToolio
