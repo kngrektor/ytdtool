@@ -1,6 +1,7 @@
+#!/bin/bash
 cd "$(dirname $0)"
 
-mkdir -p "bin"
+mkdir "bin"
 
 # Build FuckDX
 cd "fuckdx/"
@@ -11,9 +12,10 @@ cd "fuckdx/"
 
 		cp "bin/Release/libFuckDX.so" "../../bin/"
 	cd ..
-	rm -r "build/"
+
+	rm -rf "build/"
 cd ..
 
 # Build YTDToolio
-dotnet publish -c Release -r linux-x64 --self-contained true
+dotnet publish -c Release -r linux-x64 --self-contained true --nologo
 cp "ytdtoolio/bin/Release/net5.0/linux-x64/publish/YTDToolio" "bin/"

@@ -18,12 +18,17 @@ YTDToolio pack very_cool_car -d very_cool_car_small
 
 ## TODO
 
-* Switch to [Neos' RageLib fork](https://github.com/carmineos/gta-toolkit) which has several optimizations and some [CodeWalker](https://github.com/dexyfex/CodeWalker/) features backported
 * Add files to existing dictionaries instead just overwriting the whole dict
 * Maybe support more pixel formats? don't know if this is actually used by anyone
 
+## Development
+
+1. Run the `dev_*` script appropiate for your system.
+2. Open the `YTDToolio.sln` file using `Visual Studio 2019`
+
 ## Building
 
-Use the `build_*` script appropiate for your system.
+1. Run the `dev_*` script appropiate for your system (if not already done).
+2. Run the `build_*` script appropiate for your system.
 
 If you use this for your FiveM server and get infinite donations it'd be nice if you [shared some of it](https://www.patreon.com/kngrektor)

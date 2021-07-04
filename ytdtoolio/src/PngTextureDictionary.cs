@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using RageLib.Resources.Common;
 using RageLib.Resources.GTA5.PC.Textures;
 using RageLib.ResourceWrappers;
-using RageLib.ResourceWrappers.GTA5.PC.Textures;
+using RageLib.GTA5.ResourceWrappers.PC.Textures;
 
 namespace ytdtoolio {
 	class PngTextureDictionary {
@@ -17,6 +17,7 @@ namespace ytdtoolio {
 		private PngTextureDictionary(Dictionary<string, PngTexture> pngs) {
 			this.pngs = pngs;
 		}
+
 		public PngTextureDictionary(ITextureDictionary dict) {
 			pngs = dict.Textures
 				.ToDictionary(
@@ -32,6 +33,7 @@ namespace ytdtoolio {
 				png.Save(Path.Join(dir, $"{name}.png"));
 			}
 		}
+
 		public static PngTextureDictionary Load(string dir) {
 			Console.WriteLine($"Loading dictionary from {dir}");
 			return new PngTextureDictionary(
@@ -46,10 +48,14 @@ namespace ytdtoolio {
 			);
 		}
 
-		public TextureDictionary ToTextureDictionary() {
+		public PgDictionary64<TextureDX11> ToTextureDictionary() {
 			// This too is a mess
-			var dict = new TextureDictionary();
-			dict.Textures.Entries = new ResourcePointerArray64<TextureDX11>();
+			var dict = new PgDictionary64<TextureDX11>();
+
+			dict.Hashes = new SimpleList64<uint>();
+			dict.Values = new ResourcePointerList64<TextureDX11>();
+
+			dict.Values.Entries = new ResourcePointerArray64<TextureDX11>();
 			var w = new TextureDictionaryWrapper_GTA5_pc(dict);
 
 			foreach (var (name, png) in pngs) {

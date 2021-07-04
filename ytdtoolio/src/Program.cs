@@ -9,9 +9,8 @@ using System.CommandLine.Invocation;
 
 using RageLib.Resources.GTA5;
 using RageLib.Resources.GTA5.PC.Textures;
-using RageLib.ResourceWrappers.GTA5.PC.Textures;
-using RageLib.ResourceWrappers;
-
+using RageLib.GTA5.ResourceWrappers.PC.Textures;
+using RageLib.Resources.Common;
 
 namespace ytdtoolio {
 	// I **love** C# and people who write C#
@@ -20,10 +19,12 @@ namespace ytdtoolio {
 			command.AddArgument(argument);
 			return command;
 		}
+
 		public static Command WithOption(this Command command, Option option) {
 			command.AddOption(option);
 			return command;
 		}
+
 		public static Argument WithValidator<T>(this Argument argument, Func<T?, string?> validator) {
 			argument.AddValidator(arg => validator(arg.GetValueOrDefault<T>()));
 			return argument;
@@ -34,18 +35,22 @@ namespace ytdtoolio {
 		static string? IsYTD(FileInfo? file) {
 			if (file == null) return "But which .YTD sire?";
 			if (!file.Exists) return $"I'm sorry my sire, but {file.FullName} isn't a valid file";
+
 			using (var fs = file.OpenRead()) {
 				if (fs.ReadByte() != 'R' || fs.ReadByte() != 'S' || fs.ReadByte() != 'C' || fs.ReadByte() != '7') {
 					return $"It appears that {file.Name} is not a GTA V (PC) Resource7 file";
 				}
 			}
+
 			return null;
 		}
+
 		static string? IsDir(DirectoryInfo? dir) {
 			if (dir == null) return "But which directory sire?";
 			if (!dir.Exists) return $"I'm sorry my sire, but {dir.FullName} isn't a valid directory";
 			return null;
 		}
+
 		static void List(FileInfo file) {
 			var ytd = new TextureDictionaryFileWrapper_GTA5_pc();
 			ytd.Load(file.FullName);
@@ -64,6 +69,7 @@ namespace ytdtoolio {
 				}
 			}
 		}
+
 		static void Unpack(FileInfo file, DirectoryInfo destination) {
 			var ytd = new TextureDictionaryFileWrapper_GTA5_pc();
 			ytd.Load(file.FullName);
@@ -71,20 +77,24 @@ namespace ytdtoolio {
 			
 			var dir = destination?.FullName ??
 				Path.Join(file.DirectoryName, Path.GetFileNameWithoutExtension(file.Name));
+
 			new PngTextureDictionary(ytd.TextureDictionary)
 				.Save(dir);
 		}
+
 		static void Pack(DirectoryInfo directory, FileInfo destination) {
 			var dict = PngTextureDictionary.Load(directory.FullName)
 				.ToTextureDictionary();
 
 			var file = destination?.FullName ??
-				Path.Join(directory.Parent.FullName, $"{directory.Name}.ytd");
-			new ResourceFile_GTA5_pc<TextureDictionary>() {
+				Path.Join(directory?.Parent?.FullName, $"{directory?.Name}.ytd");
+
+			new ResourceFile_GTA5_pc<PgDictionary64<TextureDX11>>() {
 				ResourceData = dict,
 				Version = 13
 			}.Save(file);
 		}
+
 		static void Main(string[] args)  {
 			var root = new RootCommand("ytdtool") {
 				new Command("list") {

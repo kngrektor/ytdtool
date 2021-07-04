@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 using SixLabors.ImageSharp;
@@ -21,23 +20,24 @@ namespace ytdtoolio {
 	static class TextureFormatExt {
 		public static int Stride(this TextureFormat fmt, int width) {
 			switch (fmt) {
-			case D3DFMT_A8R8G8B8: return 4*width;
-			case D3DFMT_L8:       return 1*width;
-			case D3DFMT_A8:       return 1*width;
-			case D3DFMT_A1R5G5B5: return 2*width;
-			case D3DFMT_A8B8G8R8: return 4*width;
-			// Compressed formats
-			case D3DFMT_DXT1: return width/4*8 /4;
-			//case D3DFMT_DXT3: ;
-			case D3DFMT_DXT5: return width/4*16/4;
-			case D3DFMT_ATI1: return width/4*8 /4;
-			case D3DFMT_ATI2: return width/4*16/4;
-			case D3DFMT_BC7:  return width/4*16/4;
-			default: throw new NotImplementedException();
+				case D3DFMT_A8R8G8B8: return 4 * width;
+				case D3DFMT_L8:       return 1 * width;
+				case D3DFMT_A8:       return 1 * width;
+				case D3DFMT_A1R5G5B5: return 2 * width;
+				case D3DFMT_A8B8G8R8: return 4 * width;
+				// Compressed formats
+				case D3DFMT_DXT1: return width/4*8 /4;
+				//case D3DFMT_DXT3: ;
+				case D3DFMT_DXT5: return width / 4 * 16 / 4;
+				case D3DFMT_ATI1: return width / 4 * 8  / 4;
+				case D3DFMT_ATI2: return width / 4 * 16 / 4;
+				case D3DFMT_BC7:  return width / 4 * 16 / 4;
+				default: throw new NotImplementedException();
 			}
 		}
+
 		public static int Size(this TextureFormat fmt, int width, int height) {
-			return fmt.Stride(width)*height;
+			return fmt.Stride(width) * height;
 		}
 	}
 
@@ -47,11 +47,11 @@ namespace ytdtoolio {
 			int w = tex.Width, h = tex.Height;
 
 			switch (tex.Format) {
-			case D3DFMT_A8R8G8B8: return Image.LoadPixelData<Bgra32  >(d, w, h);
-			case D3DFMT_L8:       return Image.LoadPixelData<L8      >(d, w, h);
-			case D3DFMT_A8:       return Image.LoadPixelData<A8      >(d, w, h);
-			case D3DFMT_A1R5G5B5: return Image.LoadPixelData<Bgra5551>(d, w, h);
-			case D3DFMT_A8B8G8R8: return Image.LoadPixelData<Rgba32  >(d, w, h);
+				case D3DFMT_A8R8G8B8: return Image.LoadPixelData<Bgra32>(d, w, h);
+				case D3DFMT_L8:       return Image.LoadPixelData<L8>(d, w, h);
+				case D3DFMT_A8:       return Image.LoadPixelData<A8>(d, w, h);
+				case D3DFMT_A1R5G5B5: return Image.LoadPixelData<Bgra5551>(d, w, h);
+				case D3DFMT_A8B8G8R8: return Image.LoadPixelData<Rgba32>(d, w, h);
 			}
 			
 			var uncompressed = new byte[D3DFMT_A8B8G8R8.Size(w, h)];
@@ -64,6 +64,7 @@ namespace ytdtoolio {
 			return Image.LoadPixelData<Rgba32>(uncompressed, w, h);
 		}
 	}
+
 	static class ImageExt {
 		public static Image[] GenerateMipMaps(this Image img, int levels) {
 			var imgs = new Image[levels];
@@ -78,6 +79,7 @@ namespace ytdtoolio {
 
 			return imgs;
 		}
+
 		public static byte[] ToPixelData<T>(this Image image, TextureFormat fmt)
 			where T: unmanaged, IPixel<T>
 		{
@@ -92,6 +94,7 @@ namespace ytdtoolio {
 
 			return bytes;
 		}
+
 		public static byte[] ToPixelData(this Image image, TextureFormat fmt) {
 			switch (fmt) {
 			case D3DFMT_A8R8G8B8: return image.ToPixelData<Bgra32  >(fmt);
